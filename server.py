@@ -32,14 +32,16 @@ server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDRESS)
 
 
-def progress_info(filename, filesize, status):
+def progress_info(filename, filesize, status, new_filename=None):
     if status == 'send':
         status = 'Sending'
+        progress = tqdm.tqdm(range(
+            filesize), f"{status} {filename}", unit="B", unit_scale=True, unit_divisor=1024)
     if status == 'recv':
         status = 'Receiving'
+        progress = tqdm.tqdm(range(
+            filesize), f"{status} {filename} as {new_filename} ", unit="B", unit_scale=True, unit_divisor=1024)
 
-    progress = tqdm.tqdm(range(
-        filesize), f"{status} {filename}", unit="B", unit_scale=True, unit_divisor=1024)
     return progress
 
 
@@ -90,7 +92,7 @@ print(f"[+] {address} is connected.")
 
 if status == 'recv':
     filename, filesize = recv_info(connection)
-    progress = progress_info(filename, filesize, status)
+    progress = progress_info(filename, filesize, status, new_filename)
     recv_file(connection, new_filename, progress)
     connection.close()
     server.close()

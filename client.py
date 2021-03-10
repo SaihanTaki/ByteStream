@@ -33,14 +33,16 @@ client.connect(ADDRESS)
 print("[+] Connected.")
 
 
-def progress_info(filename, filesize, status):
+def progress_info(filename, filesize, status, new_filename=None):
     if status == 'send':
         status = 'Sending'
+        progress = tqdm.tqdm(range(
+            filesize), f"{status} {filename}", unit="B", unit_scale=True, unit_divisor=1024)
     if status == 'recv':
         status = 'Receiving'
+        progress = tqdm.tqdm(range(
+            filesize), f"{status} {filename} as {new_filename} ", unit="B", unit_scale=True, unit_divisor=1024)
 
-    progress = tqdm.tqdm(range(
-        filesize), f"{status} {filename}", unit="B", unit_scale=True, unit_divisor=1024)
     return progress
 
 
@@ -83,7 +85,7 @@ def recv_file(client, filename, progress):
 
 if status == 'recv':
     filename, filesize = recv_info(client)
-    progress = progress_info(filename, filesize, status)
+    progress = progress_info(filename, filesize, status, new_filename)
     recv_file(client, new_filename, progress)
     client.close()
 
