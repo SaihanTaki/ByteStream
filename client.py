@@ -85,6 +85,8 @@ def recv_file(client, filename, progress):
 
 if status == 'recv':
     filename, filesize = recv_info(client)
+    extension = filename.split(".")[-1]
+    new_filename = new_filename+"."+extension
     progress = progress_info(filename, filesize, status, new_filename)
     recv_file(client, new_filename, progress)
     client.close()

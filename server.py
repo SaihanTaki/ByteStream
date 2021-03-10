@@ -92,6 +92,8 @@ print(f"[+] {address} is connected.")
 
 if status == 'recv':
     filename, filesize = recv_info(connection)
+    extension = filename.split(".")[-1]
+    new_filename = new_filename+"."+extension
     progress = progress_info(filename, filesize, status, new_filename)
     recv_file(connection, new_filename, progress)
     connection.close()
