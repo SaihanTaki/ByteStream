@@ -1,6 +1,6 @@
 # File Sharing over TCP
 
-A basic server-client model for sharing file over TCP implemented using socket.
+A server-client model for sharing file over TCP implemented using socket.
 
 ## Usage
 
@@ -40,5 +40,5 @@ $ python client.py recv <file name>
 
 ## Things To Do
 
-1.Handling multiple clients  
-2.Handling multiple servers
+-   Handling multiple clients
+-   Handling multiple servers
