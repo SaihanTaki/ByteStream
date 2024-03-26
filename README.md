@@ -1,4 +1,4 @@
-# File Sharing over TCP
+# ByteStream: File Transfer over TCP
 
 A server-client model for sharing file over TCP implemented using socket.
 
